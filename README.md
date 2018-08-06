@@ -11,3 +11,4 @@ Les heures sont retournées sous la forme d'une liste avec le jour, la tranche h
 
 * Stocker les horaires
 * Faire des rapports hebdomadaires
+* Envoyer les rapports par email
