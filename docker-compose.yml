@@ -1,0 +1,9 @@
+version: '2'
+services:
+  web:
+    build: .
+    command: rackup --host '0.0.0.0'
+    volumes:
+      - .:/app
+    ports:
+      - "9292:9292"
