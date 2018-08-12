@@ -12,3 +12,7 @@ Les heures sont retournées sous la forme d'une liste avec le jour, la tranche h
 * Stocker les horaires
 * Faire des rapports hebdomadaires
 * Envoyer les rapports par email
+
+# Fonctionnement (dev)
+
+docker-compose up (lance un serveur sur localhost:9292 et webpack qui watch le fichier css et js)
