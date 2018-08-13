@@ -20,4 +20,8 @@ RUN gem install foreman
 ADD Gemfile* $APP_HOME/
 RUN bundle install
 
+ADD yarn.lock $APP_HOME/
+ADD package.json $APP_HOME/
+RUN yarn install
+
 ADD . $APP_HOME
