@@ -13,6 +13,11 @@ Les heures sont retournées sous la forme d'une liste avec le jour, la tranche h
 * Faire des rapports hebdomadaires
 * Envoyer les rapports par email
 
+# Installation
+
+ajouter un fichier .npmrc avec les informations d'accès pour fontawesome 5 PRO
+https://fontawesome.com/how-to-use/on-the-web/setup/using-package-managers
+
 # Fonctionnement (dev)
 
 docker-compose up (lance un serveur sur localhost:9292 et webpack qui watch le fichier css et js)
