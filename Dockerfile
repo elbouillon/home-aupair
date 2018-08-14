@@ -16,6 +16,8 @@ RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 RUN gem install foreman
+RUN gem install rerun
+RUN gem install rb-kqueue
 
 ADD Gemfile* $APP_HOME/
 RUN bundle install
