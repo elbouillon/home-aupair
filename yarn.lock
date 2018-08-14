@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@fortawesome/fontawesome-pro@^5.2.0":
+  version "5.2.0"
+  resolved "https://npm.fontawesome.com/@fortawesome/fontawesome-pro/-/fontawesome-pro-5.2.0.tgz#e202f9ac8ee8543670233c218dfc6e058a7a89c5"
+
 "@symfony/webpack-encore@^0.20.1":
   version "0.20.1"
   resolved "https://registry.yarnpkg.com/@symfony/webpack-encore/-/webpack-encore-0.20.1.tgz#ab879839f31aef8d6706eef3803ad3e2fb271dc4"
