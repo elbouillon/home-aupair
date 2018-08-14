@@ -30,7 +30,7 @@ Encore
     //.enableTypeScriptLoader()
 
     // uncomment if you use Sass/SCSS files
-    //.enableSassLoader()
+    .enableSassLoader()
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
