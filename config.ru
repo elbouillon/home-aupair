@@ -1,37 +1,31 @@
+require(File.expand_path('trailblazer-config', File.dirname(__FILE__)))
 require "roda"
 
 class App < Roda
+  plugin :default_headers,
+    'Content-Type'=>'text/html',
+    # 'Content-Security-Policy'=>"default-src 'self' https://oss.maxcdn.com/ https://maxcdn.bootstrapcdn.com https://ajax.googleapis.com",
+    #'Strict-Transport-Security'=>'max-age=16070400;', # Uncomment if only allowing https:// access
+    'X-Frame-Options'=>'deny',
+    'X-Content-Type-Options'=>'nosniff',
+    'X-XSS-Protection'=>'1; mode=block',
+    'Accept-Charset'=>'utf-8'
+
+  use Rack::Session::Cookie,
+    :key => '_Homeaupair_session',
+    #:secure=>!TEST_MODE, # Uncomment if only allowing https:// access
+    :secret=> ENV['SESSION_SECRET']
+
+  plugin :public
 
   route do |r|
+    r.public
+
     # GET / request
     r.root do
-      r.redirect "/hello"
+      Homepage::Cell::Show.(nil, layout:  Stats::Cell::Layout).()
     end
 
-    # /hello branch
-    r.on "hello" do
-      # Set variable for all routes in /hello branch
-      @greeting = 'Hello'
-
-      # GET /hello/world request
-      r.get "world" do
-        "#{@greeting} world!"
-      end
-
-      # /hello request
-      r.is do
-        # GET /hello request
-        r.get do
-          "#{@greeting}!"
-        end
-
-        # POST /hello request
-        r.post do
-          puts "Someone said #{@greeting}!"
-          r.redirect
-        end
-      end
-    end
   end
 end
 

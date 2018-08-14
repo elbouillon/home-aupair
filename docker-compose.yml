@@ -7,3 +7,5 @@ services:
       - .:/app
     ports:
       - "9292:9292"
+    environment:
+      - SESSION_SECRET='lakjsfalfjslkafjlsjflksajf'
