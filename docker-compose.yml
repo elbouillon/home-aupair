@@ -9,3 +9,5 @@ services:
       - "9292:9292"
     environment:
       - SESSION_SECRET='lakjsfalfjslkafjlsjflksajf'
+    env_file:
+      - infos.env

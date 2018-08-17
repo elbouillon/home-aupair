@@ -1,4 +1,10 @@
+
 form.form-inline.border-bottom.border-info.mb-4.pb-4
+  - if as_token
+    = calendar_list
+  - else
+    a href=na Obtenir le code
+
   label Afficher les heures entre le
   input.form-control.form-control-lg.flex-grow-1.mx-2 type='date' value=Date.today
   label et

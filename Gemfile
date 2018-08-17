@@ -16,6 +16,8 @@ gem "trailblazer-cells"
 gem "trailblazer-loader"
 gem "cells-slim"
 
+gem 'nylas'
+
 # process and dev
 group :development do
   # gem "foreman"
