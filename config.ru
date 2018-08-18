@@ -40,19 +40,51 @@ class App < Roda
       Homepage::Cell::Show.(nil, na: nylas_auth_path, session: session, layout:  Stats::Cell::Layout).()
     end
 
-    r.get 'nylas/register' do
-      code = r.params['code']
-      client_id = ENV['NYLAS_APP_ID']
-      client_secret = ENV['NYLAS_APP_SECRET']
+    r.on 'nylas' do
 
-      uri = URI("https://api.nylas.com/oauth/token")
-      params = { client_id: client_id, client_secret: client_secret, grant_type: 'authorization_code', code: code }
+      r.post 'events' do
+        api = Nylas::API.new(
+          app_id: ENV['NYLAS_APP_ID'],
+          app_secret: ENV['NYLAS_APP_SECRET'],
+          access_token: session[:token]
+        )
 
-      res = Net::HTTP.post_form(uri, params)
-      # session[:token] = res.body['access_token']
-      session[:token] = JSON.parse(res.body)['access_token']
+        from = Date.parse(r.params['from']).to_time
+        to = Date.parse(r.params['to']).to_time
 
-      r.redirect '/'
+        events = api.events.where(
+          calendar_id: r.params['calendar_id'],
+          starts_after: from.to_i,
+          ends_before: to.to_i
+        ).execute
+
+        e = []
+        (from.to_date..to.to_date).each do |day|
+          e << { 
+            day: day, 
+            events: events.select{ 
+              |event| Nylas::Event.new(event).when.start_time.to_date == day 
+            }.map{|e| Nylas::Event.new(e)}
+          }
+        end
+
+        Report::Cell::Show.(e, layout: Stats::Cell::Layout).()
+      end
+
+      r.get 'register' do
+        code = r.params['code']
+        client_id = ENV['NYLAS_APP_ID']
+        client_secret = ENV['NYLAS_APP_SECRET']
+
+        uri = URI("https://api.nylas.com/oauth/token")
+        params = { client_id: client_id, client_secret: client_secret, grant_type: 'authorization_code', code: code }
+
+        res = Net::HTTP.post_form(uri, params)
+        # session[:token] = res.body['access_token']
+        session[:token] = JSON.parse(res.body)['access_token']
+
+        r.redirect '/'
+      end
     end
 
   end

@@ -1,17 +1,14 @@
+/ form.form-inline.border-bottom.border-info.mb-4.pb-4
 
-form.form-inline.border-bottom.border-info.mb-4.pb-4
+= form(nil, 'nylas/events') do |f|
   - if as_token
-    = calendar_list
+    = f.select :calendar_id, label: 'calendrier', collection: calendar_list
   - else
     a href=na Obtenir le code
 
-  label Afficher les heures entre le
-  input.form-control.form-control-lg.flex-grow-1.mx-2 type='date' value=Date.today
-  label et
-  input.form-control.form-control-lg.flex-grow-1.mx-2 type='date' value=Date.today+5
+  = f.input :from, type: 'date', label: 'Afficher les heures entre le', value: Date.today-5, class: ['flex-grow-1','form-control-lg']
+  = f.input :to, type: 'date', label: 'et', value: Date.today, class: ['flex-grow-1','form-control-lg', 'mx-2']
+
   button.btn.btn-outline.btn-primary type='submit'
     | afficher 
     i.fal.fa-calendar-alt
-
-
-= Report::Cell::Show.(nil).()

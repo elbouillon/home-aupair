@@ -1,11 +1,32 @@
 h1 Rapport
 table.table
   body
-    tr
-      td jeudi 11.08.2018 
-      td 9:30-11:30 | 12:30-17:30
-      td 4,5h
+    - total_hours = 0
+    - model.each do |e|
+      tr
+        td
+          = e[:day].strftime("%a %d.%m.%y")
+        td
+          - e[:events].each_with_index do |event, index|
+            = event.when.start_time.strftime("%H:%M")
+            |-
+            = event.when.end_time.strftime("%H:%M")
+            - if e[:events].count > 1 and index != e[:events].count-1
+              |  I  
+        td
+          - t = 0
+          - e[:events].each do |event|
+            - t += event.when.end_time.to_i - event.when.start_time.to_i
+
+          - total_hours += t
+          - hours = t/3600.00
+          - minutes = (t%3600)/60
+          | #{hours.to_i}h#{minutes}min
+
   footer
     tr
       th.text-right colspan=2 Total
-      td 23,4h
+      td
+        - hours = total_hours/3600.00
+        - minutes = (total_hours%3600)/60
+        | #{hours.to_i}h#{minutes}min

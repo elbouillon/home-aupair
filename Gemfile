@@ -15,6 +15,7 @@ gem 'roda'
 gem "trailblazer-cells"
 gem "trailblazer-loader"
 gem "cells-slim"
+gem 'formular'
 
 gem 'nylas'
 

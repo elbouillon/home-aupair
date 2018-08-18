@@ -1,6 +1,11 @@
+require 'formular'
+
 module Homepage
   module Cell
     class Show < Trailblazer::Cell
+      include Formular::Helper
+      Formular::Helper.builder= :bootstrap4_inline
+
       def na
         options[:na]
       end
@@ -19,7 +24,7 @@ module Homepage
 
       def calendar_list
         api.calendars.map do |cal|
-          {cal.id.to_sym => cal.name}
+          [cal.name, cal.id]
         end
       end
     end

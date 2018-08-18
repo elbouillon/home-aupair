@@ -9,11 +9,15 @@ GEM
     cells-slim (0.0.6)
       cells (>= 4.0.1, < 6.0.0)
       slim (~> 3.0)
+    declarative (0.0.10)
     declarative-builder (0.1.0)
       declarative-option (< 0.2.0)
     declarative-option (0.1.0)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
+    formular (0.2.3)
+      declarative (~> 0.0.4)
+      uber (>= 0.0.11, < 0.2.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     mime-types (3.2.2)
@@ -51,6 +55,7 @@ PLATFORMS
 DEPENDENCIES
   bundler
   cells-slim
+  formular
   nylas
   rack_csrf
   rake
