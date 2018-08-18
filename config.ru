@@ -67,6 +67,8 @@ class App < Roda
             }.map{|e| Nylas::Event.new(e)}
           }
         end
+        # supprimer les jours vides
+        e.select! { |day| day[:events].count > 0 }
 
         Report::Cell::Show.(e, layout: Stats::Cell::Layout).()
       end
