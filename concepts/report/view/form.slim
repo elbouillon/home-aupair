@@ -1,0 +1,9 @@
+= form(nil, '/nylas/events', class: ['border-bottom', 'border-info', 'mb-4', 'pb-4']) do |f|
+  .row
+    .col= f.select :calendar_id, label: 'Calendrier', collection: calendar_list, value: model.calendar_id, class: ['form-control-lg']
+    .col= f.input :from, type: 'date', label: 'Afficher les heures entre le', value: model.from, class: ['form-control-lg']
+    .col= f.input :to, type: 'date', label: 'et', value: model.to, class: ['form-control-lg']
+
+  button.btn.btn-outline-primary.btn-block.btn-lg type='submit'
+    i.fal.fa-calendar-alt
+    |  afficher 

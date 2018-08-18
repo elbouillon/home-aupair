@@ -26,7 +26,8 @@ class App < Roda
   path :nylas_auth do ||
     redirect_uri = 'http://localhost:9292/nylas/register'
     response_type = 'code'
-    login_hint = 'mickael@panorama-pl.ch'
+    # login_hint = 'mickael@panorama-pl.ch'
+    login_hint = ''
     client_id = ENV['NYLAS_APP_ID']
 
     "https://api.nylas.com/oauth/authorize?client_id=#{client_id}&response_type=#{response_type}&scope=email&login_hint=#{login_hint}&redirect_uri=#{redirect_uri}"
@@ -37,7 +38,14 @@ class App < Roda
 
     # GET / request
     r.root do
-      Homepage::Cell::Show.(nil, na: nylas_auth_path, session: session, layout:  Stats::Cell::Layout).()
+      eventForm = Struct.new(:calendar_id, :from, :to)
+      model = eventForm.new(nil, Date.today-5, Date.today)
+      Homepage::Cell::Show.(model, na: nylas_auth_path, session: session, layout:  Stats::Cell::Layout).()
+    end
+
+    r.get 'logout' do
+      session.clear
+      r.redirect '/'
     end
 
     r.on 'nylas' do
@@ -49,11 +57,12 @@ class App < Roda
           access_token: session[:token]
         )
 
+        cal_id = r.params['calendar_id']
         from = Date.parse(r.params['from']).to_time
         to = Date.parse(r.params['to']).to_time
 
         events = api.events.where(
-          calendar_id: r.params['calendar_id'],
+          calendar_id: cal_id,
           starts_after: from.to_i,
           ends_before: to.to_i
         ).execute
@@ -70,7 +79,10 @@ class App < Roda
         # supprimer les jours vides
         e.select! { |day| day[:events].count > 0 }
 
-        Report::Cell::Show.(e, layout: Stats::Cell::Layout).()
+        eventForm = Struct.new(:calendar_id, :from, :to)
+        model = eventForm.new(cal_id, from.to_date, to.to_date)
+        
+        Report::Cell::Show.(e, session: session, eventform: model, layout: Stats::Cell::Layout).()
       end
 
       r.get 'register' do
