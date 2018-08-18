@@ -1,6 +1,6 @@
 FROM ruby:2.3.3
 
-RUN apt-get update -qq && apt-get install -y build-essential nodejs imagemagick libmagickwand-dev
+RUN apt-get update -qq && apt-get install -y build-essential nodejs imagemagick libmagickwand-dev gcc g++ make apt-utils
 
 # for a JS runtime
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
@@ -24,6 +24,7 @@ RUN bundle install
 
 ADD yarn.lock $APP_HOME/
 ADD package.json $APP_HOME/
+ADD .npmrc $APP_HOME/
 RUN yarn install
 
 ADD . $APP_HOME
