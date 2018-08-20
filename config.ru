@@ -61,10 +61,12 @@ class App < Roda
         from = Date.parse(r.params['from']).to_time
         to = Date.parse(r.params['to']).to_time
 
+        day = 60*60*24
+
         events = api.events.where(
           calendar_id: cal_id,
-          starts_after: from.to_i,
-          ends_before: to.to_i
+          starts_after: from.to_i - day,
+          ends_before: to.to_i + day
         ).execute
 
         e = []
