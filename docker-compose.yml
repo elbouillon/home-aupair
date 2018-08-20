@@ -2,10 +2,10 @@ version: '2'
 services:
   web:
     build: .
-    command: foreman start
+    command: foreman start -f Procfile.dev
     volumes:
       - .:/app
     ports:
       - "9292:9292"
-    environment:
-      - SESSION_SECRET='lakjsfalfjslkafjlsjflksajf'
+    env_file:
+      - infos.env
