@@ -2,6 +2,7 @@ require(File.expand_path('trailblazer-config', File.dirname(__FILE__)))
 require 'nylas'
 require "roda"
 require 'net/http'
+require "core_ext/time"
 
 class App < Roda
   plugin :default_headers,
@@ -20,7 +21,6 @@ class App < Roda
   plugin :public, gzip: true
   plugin :path
 
-
   # paths
   path :nylas_auth do ||
     redirect_uri = "#{ENV['APP_URL']}/nylas/register"
@@ -33,6 +33,7 @@ class App < Roda
   end
 
   route do |r|
+    Time.zone = "Europe/Zurich"
     r.public
 
     # GET / request

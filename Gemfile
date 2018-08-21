@@ -10,7 +10,7 @@ gem 'roda'
 # gem 'thin'
 # code and application
 # gem "omniauth-google-oauth2"
-# gem "core_ext"
+gem "core_ext"
 
 gem "trailblazer-cells"
 gem "trailblazer-loader"

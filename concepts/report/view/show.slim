@@ -10,9 +10,9 @@ table.table
           = e[:day].strftime("%a %d.%m.%y")
         td
           - e[:events].each_with_index do |event, index|
-            = event.when.start_time.strftime("%H:%M")
+            = event.when.start_time.in_time_zone('Europe/Zurich').strftime("%H:%M")
             |-
-            = event.when.end_time.strftime("%H:%M")
+            = event.when.end_time.in_time_zone('Europe/Zurich').strftime("%H:%M")
             - if e[:events].count > 1 and index != e[:events].count-1
               |  I  
         td
