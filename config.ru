@@ -17,7 +17,7 @@ class App < Roda
     #:secure=>!TEST_MODE, # Uncomment if only allowing https:// access
     :secret=> ENV['SESSION_SECRET']
 
-  plugin :public
+  plugin :public, gzip: true
   plugin :path
 
 
