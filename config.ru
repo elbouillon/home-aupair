@@ -23,7 +23,7 @@ class App < Roda
 
   # paths
   path :nylas_auth do ||
-    redirect_uri = 'http://localhost:9292/nylas/register'
+    redirect_uri = "#{ENV['APP_URL']}/nylas/register"
     response_type = 'code'
     # login_hint = 'mickael@panorama-pl.ch'
     login_hint = ''
