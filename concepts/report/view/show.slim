@@ -3,7 +3,9 @@
 h1 Rapport
 table.table
   body
+    - base_work_time = 9*60*60
     - total_hours = 0
+    - total_plus_minus = 0
     - model.each do |e|
       tr
         td
@@ -21,14 +23,14 @@ table.table
             - t += event.when.end_time.to_i - event.when.start_time.to_i
 
           - total_hours += t
-          - hours = t/3600.00
-          - minutes = (t%3600)/60
-          | #{hours.to_i}h#{minutes}min
+          = format_hours(t)
+        td
+          - total_plus_minus += (t - base_work_time)
+          = format_hours(t - base_work_time)
+
 
   footer
     tr
       th.text-right colspan=2 Total
-      td
-        - hours = total_hours/3600.00
-        - minutes = (total_hours%3600)/60
-        | #{hours.to_i}h#{minutes}min
+      td= format_hours(total_hours)
+      td= format_hours(total_plus_minus)
