@@ -1,8 +1,9 @@
-doctype 5
-= Stats::Cell::Head.(nil).()
-body.mb-5.bg-light
-  .container.bg-white
-    = Stats::Cell::Header.(nil).()
-    = yield
-    = Stats::Cell::Footer.(nil).()
-  script type="text/javascript" src="/app.js" charset="utf-8"
+doctype html
+html lang='en'
+  = Stats::Cell::Head.(nil).()
+  body.mb-5.bg-light
+    .container.bg-white
+      = Stats::Cell::Header.(nil).()
+      = yield
+      = Stats::Cell::Footer.(nil).()
+    script type="text/javascript" src="/app.js" charset="utf-8"
