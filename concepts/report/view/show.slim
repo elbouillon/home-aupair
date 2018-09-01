@@ -23,14 +23,17 @@ table.table
             - t += event.when.end_time.to_i - event.when.start_time.to_i
 
           - total_hours += t
-          = format_hours(t)
-        td
           - total_plus_minus += (t - base_work_time)
-          = format_hours(t - base_work_time)
+          - day_plus_minus = (t-base_work_time)
+          = format_hours(t)
+        td 
+          span class=hours_class(day_plus_minus)
+            = format_hours(day_plus_minus, true)
 
 
   footer
     tr
       th.text-right colspan=2 Total
       td= format_hours(total_hours)
-      td= format_hours(total_plus_minus)
+      td 
+        span class=hours_class(total_plus_minus) = format_hours(total_plus_minus, true)
